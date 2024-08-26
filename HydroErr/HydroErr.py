@@ -1541,7 +1541,7 @@ def irmse(
 
     # Getting the gradient of the observed data
     obs_len = observed_array.size
-    obs_grad = observed_array[1:obs_len] - observed_array[0 : obs_len - 1]
+    obs_grad = observed_array[1:obs_len] - observed_array[:obs_len - 1]
 
     # Standard deviation of the gradient
     obs_grad_std = np.std(obs_grad, ddof=1)
@@ -2683,10 +2683,7 @@ def dr(
 
     a = np.sum(np.abs(simulated_array - observed_array))
     b = 2 * np.sum(np.abs(observed_array - observed_array.mean()))
-    if a <= b:
-        return 1 - (a / b)
-    else:
-        return (b / a) - 1
+    return 1 - (a / b) if a <= b else (b / a) - 1
 
 
 def drel(
@@ -3064,9 +3061,7 @@ def mb_r(
     for i in range(n):
         tot = tot + np.sum(np.abs(simulated_array - observed_array[i]))
     mae_val = np.sum(np.abs(simulated_array - observed_array)) / n
-    mb = 1 - ((n**2) * mae_val / tot)
-
-    return mb
+    return 1 - ((n**2) * mae_val / tot)
 
 
 def nse(
@@ -3439,16 +3434,10 @@ def kge_2009(
     pr = top_pr / (bot1_pr * bot2_pr)
 
     # Ratio between mean of simulated and observed data
-    if obs_mean != 0:
-        beta = sim_mean / obs_mean
-    else:
-        beta = np.nan
+    beta = sim_mean / obs_mean if obs_mean != 0 else np.nan
 
     # Relative variability between simulated and observed values
-    if obs_sigma != 0:
-        alpha = sim_sigma / obs_sigma
-    else:
-        alpha = np.nan
+    alpha = sim_sigma / obs_sigma if obs_sigma != 0 else np.nan
 
     if not np.isnan(beta) and not np.isnan(alpha):
         kge = 1 - np.sqrt(
@@ -3474,10 +3463,7 @@ def kge_2009(
             f"expected <type 'bool'> for parameter return_all, got {type(return_all)} for value '{return_all}'"
         )
 
-    if return_all:
-        return pr, alpha, beta, kge
-    else:
-        return kge
+    return (pr, alpha, beta, kge) if return_all else kge
 
 
 def kge_2012(
@@ -3623,10 +3609,7 @@ def kge_2012(
             f"expected <type 'bool'> for parameter return_all, got {type(return_all)} for value '{return_all}'"
         )
 
-    if return_all:
-        return pr, gam, beta, kge
-    else:
-        return kge
+    return (pr, gam, beta, kge) if return_all else kge
 
 
 def lm_index(
@@ -3717,11 +3700,11 @@ def lm_index(
     if obs_bar_p is not None:
         a = np.abs(simulated_array - observed_array)
         b = np.abs(observed_array - obs_bar_p)
-        return 1 - (np.sum(a) / np.sum(b))
     else:
         a = np.abs(simulated_array - observed_array)
         b = np.abs(observed_array - mean_obs)
-        return 1 - (np.sum(a) / np.sum(b))
+
+    return 1 - (np.sum(a) / np.sum(b))
 
 
 def d1_p(
@@ -3808,12 +3791,12 @@ def d1_p(
     if obs_bar_p is not None:
         a = np.abs(observed_array - simulated_array)
         b = np.abs(simulated_array - obs_bar_p) + np.abs(observed_array - obs_bar_p)
-        return 1 - (np.sum(a) / np.sum(b))
     else:
         mean_obs = np.mean(observed_array)
         a = np.abs(observed_array - simulated_array)
         b = np.abs(simulated_array - mean_obs) + np.abs(observed_array - mean_obs)
-        return 1 - (np.sum(a) / np.sum(b))
+
+    return 1 - (np.sum(a) / np.sum(b))
 
 
 def ve(
@@ -7005,11 +6988,7 @@ def treat_values(
             obs_copy[obs_nan] = replace_nan
 
             warnings.warn(
-                "Elements(s) {} contained NaN values in the simulated array and "
-                "elements(s) {} contained NaN values in the observed array and have been "
-                "replaced (Elements are zero indexed).".format(
-                    np.where(sim_nan)[0], np.where(obs_nan)[0]
-                ),
+                f"Elements(s) {np.where(sim_nan)[0]} contained NaN values in the simulated array and elements(s) {np.where(obs_nan)[0]} contained NaN values in the observed array and have been replaced (Elements are zero indexed).",
                 UserWarning,
             )
         else:
@@ -7020,10 +6999,7 @@ def treat_values(
             all_treatment_array = np.logical_and(all_treatment_array, all_nan_indices)
 
             warnings.warn(
-                "Row(s) {} contained NaN values and the row(s) have been "
-                "removed (Rows are zero indexed).".format(
-                    np.where(~all_nan_indices)[0]
-                ),
+                f"Row(s) {np.where(~all_nan_indices)[0]} contained NaN values and the row(s) have been removed (Rows are zero indexed).",
                 UserWarning,
             )
 
@@ -7037,11 +7013,7 @@ def treat_values(
             obs_copy[obs_inf] = replace_inf
 
             warnings.warn(
-                "Elements(s) {} contained Inf values in the simulated array and "
-                "elements(s) {} contained Inf values in the observed array and have been "
-                "replaced (Elements are zero indexed).".format(
-                    np.where(sim_inf)[0], np.where(obs_inf)[0]
-                ),
+                f"Elements(s) {np.where(sim_inf)[0]} contained Inf values in the simulated array and elements(s) {np.where(obs_inf)[0]} contained Inf values in the observed array and have been replaced (Elements are zero indexed).",
                 UserWarning,
             )
         else:
@@ -7051,8 +7023,7 @@ def treat_values(
             all_treatment_array = np.logical_and(all_treatment_array, all_inf_indices)
 
             warnings.warn(
-                "Row(s) {} contained Inf or -Inf values and the row(s) have been removed (Rows "
-                "are zero indexed).".format(np.where(~all_inf_indices)[0]),
+                f"Row(s) {np.where(~all_inf_indices)[0]} contained Inf or -Inf values and the row(s) have been removed (Rows are zero indexed).",
                 UserWarning,
             )
 
@@ -7066,8 +7037,7 @@ def treat_values(
             all_treatment_array = np.logical_and(all_treatment_array, all_zero_indices)
 
             warnings.warn(
-                "Row(s) {} contained zero values and the row(s) have been removed (Rows are "
-                "zero indexed).".format(np.where(~all_zero_indices)[0]),
+                f"Row(s) {np.where(~all_zero_indices)[0]} contained zero values and the row(s) have been removed (Rows are zero indexed).",
                 UserWarning,
             )
 
@@ -7087,10 +7057,7 @@ def treat_values(
             all_treatment_array = np.logical_and(all_treatment_array, all_neg_indices)
 
             warnings.warn(
-                "Row(s) {} contained negative values and the row(s) have been "
-                "removed (Rows are zero indexed).".format(
-                    np.where(~all_neg_indices)[0]
-                ),
+                f"Row(s) {np.where(~all_neg_indices)[0]} contained negative values and the row(s) have been removed (Rows are zero indexed).",
                 UserWarning,
             )
 
@@ -7098,7 +7065,3 @@ def treat_values(
     sim_copy = sim_copy[all_treatment_array]
 
     return sim_copy, obs_copy
-
-
-if __name__ == "__main__":
-    pass
