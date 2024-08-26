@@ -15,20 +15,91 @@ An example of this functionality is shown below.
 >>> he.acc.abbr
 'ACC'
 """
+
 from __future__ import division
-import numpy as np
-from scipy.stats import gmean, rankdata
+
 import warnings
 
-__all__ = ['me', 'mae', 'mse', 'mle', 'male', 'msle', 'mde', 'mdae', 'mdse', 'ed', 'ned', 'rmse',
-           'rmsle', 'nrmse_range', 'nrmse_mean', 'nrmse_iqr', 'irmse', 'mase', 'r_squared',
-           'pearson_r', 'spearman_r', 'acc', 'mape', 'mapd', 'maape', 'smape1', 'smape2', 'd', 'd1',
-           'dmod', 'drel', 'dr', 'watt_m', 'mb_r', 'nse', 'nse_mod', 'nse_rel', 'kge_2009',
-           'kge_2012', 'lm_index', 'd1_p', 've', 'sa', 'sc', 'sid', 'sga', 'h1_mhe', 'h1_mahe',
-           'h1_rmshe', 'h2_mhe', 'h2_mahe', 'h2_rmshe', 'h3_mhe', 'h3_mahe', 'h3_rmshe', 'h4_mhe',
-           'h4_mahe', 'h4_rmshe', 'h5_mhe', 'h5_mahe', 'h5_rmshe', 'h6_mhe', 'h6_mahe', 'h6_rmshe',
-           'h7_mhe', 'h7_mahe', 'h7_rmshe', 'h8_mhe', 'h8_mahe', 'h8_rmshe', 'h10_mhe', 'h10_mahe',
-           'h10_rmshe', 'g_mean_diff', 'mean_var']
+import numpy as np
+from scipy.stats import gmean, rankdata
+
+__all__ = [
+    "me",
+    "mae",
+    "mse",
+    "mle",
+    "male",
+    "msle",
+    "mde",
+    "mdae",
+    "mdse",
+    "ed",
+    "ned",
+    "rmse",
+    "rmsle",
+    "nrmse_range",
+    "nrmse_mean",
+    "nrmse_iqr",
+    "irmse",
+    "mase",
+    "r_squared",
+    "pearson_r",
+    "spearman_r",
+    "acc",
+    "mape",
+    "mapd",
+    "maape",
+    "smape1",
+    "smape2",
+    "d",
+    "d1",
+    "dmod",
+    "drel",
+    "dr",
+    "watt_m",
+    "mb_r",
+    "nse",
+    "nse_mod",
+    "nse_rel",
+    "kge_2009",
+    "kge_2012",
+    "lm_index",
+    "d1_p",
+    "ve",
+    "sa",
+    "sc",
+    "sid",
+    "sga",
+    "h1_mhe",
+    "h1_mahe",
+    "h1_rmshe",
+    "h2_mhe",
+    "h2_mahe",
+    "h2_rmshe",
+    "h3_mhe",
+    "h3_mahe",
+    "h3_rmshe",
+    "h4_mhe",
+    "h4_mahe",
+    "h4_rmshe",
+    "h5_mhe",
+    "h5_mahe",
+    "h5_rmshe",
+    "h6_mhe",
+    "h6_mahe",
+    "h6_rmshe",
+    "h7_mhe",
+    "h7_mahe",
+    "h7_rmshe",
+    "h8_mhe",
+    "h8_mahe",
+    "h8_rmshe",
+    "h10_mhe",
+    "h10_mahe",
+    "h10_rmshe",
+    "g_mean_diff",
+    "mean_var",
+]
 
 
 ####################################################################################################
@@ -36,8 +107,14 @@ __all__ = ['me', 'mae', 'mse', 'mle', 'male', 'msle', 'mde', 'mdae', 'mdse', 'ed
 ####################################################################################################
 
 
-def me(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-       remove_neg=False, remove_zero=False):
+def me(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the mean error of the simulated and observed data.
 
     .. image:: /pictures/ME.png
@@ -106,16 +183,25 @@ def me(simulated_array, observed_array, replace_nan=None, replace_inf=None,
       Astronomical Society 80 758 - 770.
     """
     # Treating missing values
-    simulated_array, observed_array = treat_values(simulated_array, observed_array,
-                                                   replace_nan=replace_nan,
-                                                   replace_inf=replace_inf,
-                                                   remove_neg=remove_neg,
-                                                   remove_zero=remove_zero)
+    simulated_array, observed_array = treat_values(
+        simulated_array,
+        observed_array,
+        replace_nan=replace_nan,
+        replace_inf=replace_inf,
+        remove_neg=remove_neg,
+        remove_zero=remove_zero,
+    )
     return np.mean(simulated_array - observed_array)
 
 
-def mae(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-        remove_neg=False, remove_zero=False):
+def mae(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the mean absolute error of the simulated and observed data.
 
     .. image:: /pictures/MAE.png
@@ -187,14 +273,20 @@ def mae(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     return np.mean(np.absolute(simulated_array - observed_array))
 
 
-def mse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-        remove_neg=False, remove_zero=False):
+def mse(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
     Compute the mean squared error of the simulated and observed data.
 
@@ -262,14 +354,20 @@ def mse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     return np.mean((simulated_array - observed_array) ** 2)
 
 
-def mle(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-        remove_neg=False, remove_zero=False):
+def mle(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
     Compute the mean log error of the simulated and observed data.
 
@@ -333,14 +431,14 @@ def mle(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     sim_log = np.log1p(simulated_array)
@@ -348,8 +446,14 @@ def mle(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return np.mean(sim_log - obs_log)
 
 
-def male(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-         remove_neg=False, remove_zero=False):
+def male(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
     Compute the mean absolute log error of the simulated and observed data.
 
@@ -413,14 +517,14 @@ def male(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     sim_log = np.log1p(simulated_array)
@@ -428,8 +532,14 @@ def male(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return np.mean(np.abs(sim_log - obs_log))
 
 
-def msle(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-         remove_neg=False, remove_zero=False):
+def msle(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
     Compute the mean squared log error of the simulated and observed data.
 
@@ -493,14 +603,14 @@ def msle(simulated_array, observed_array, replace_nan=None, replace_inf=None,
 
     """
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     sim_log = np.log1p(simulated_array)
@@ -508,8 +618,14 @@ def msle(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return np.mean((sim_log - obs_log) ** 2)
 
 
-def mde(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-        remove_neg=False, remove_zero=False):
+def mde(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
     Compute the median error (MdE) between the simulated and observed data.
 
@@ -569,21 +685,27 @@ def mde(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     return np.median(simulated_array - observed_array)
 
 
-def mdae(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-         remove_neg=False, remove_zero=False):
+def mdae(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
     Compute the median absolute error (MdAE) between the simulated and observed data.
 
@@ -643,21 +765,27 @@ def mdae(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     return np.median(np.abs(simulated_array - observed_array))
 
 
-def mdse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-         remove_neg=False, remove_zero=False):
+def mdse(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
     Compute the median squared error (MdSE) between the simulated and observed data.
 
@@ -717,21 +845,27 @@ def mdse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     return np.median((simulated_array - observed_array) ** 2)
 
 
-def ed(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-       remove_neg=False, remove_zero=False):
+def ed(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
     Compute the Euclidean distance between predicted and observed values in vector space.
 
@@ -792,21 +926,27 @@ def ed(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     return np.linalg.norm(observed_array - simulated_array)
 
 
-def ned(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-        remove_neg=False, remove_zero=False):
+def ned(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
     Compute the normalized Euclidian distance between the simulated and observed data in vector
     space.
@@ -868,14 +1008,14 @@ def ned(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = observed_array / np.mean(observed_array)
@@ -883,8 +1023,14 @@ def ned(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return np.linalg.norm(a - b)
 
 
-def rmse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-         remove_neg=False, remove_zero=False):
+def rmse(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the root mean square error between the simulated and observed data.
@@ -951,21 +1097,27 @@ def rmse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     return np.sqrt(np.mean((simulated_array - observed_array) ** 2))
 
 
-def rmsle(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-          remove_neg=False, remove_zero=False):
+def rmsle(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the root mean square log error between the simulated and observed data.
@@ -1033,16 +1185,28 @@ def rmsle(simulated_array, observed_array, replace_nan=None, replace_inf=None,
       root mean square error (RMSE) in assessing average model performance.
       Climate Research 30(1) 79-82.
     """
-    
-    simulated_array, observed_array = treat_values(simulated_array, observed_array,
-                                                   replace_nan=replace_nan,
-                                                   replace_inf=replace_inf, remove_neg=remove_neg,
-                                                   remove_zero=remove_zero)
-    return np.sqrt(np.mean(np.power(np.log1p(simulated_array) - np.log1p(observed_array), 2)))
+
+    simulated_array, observed_array = treat_values(
+        simulated_array,
+        observed_array,
+        replace_nan=replace_nan,
+        replace_inf=replace_inf,
+        remove_neg=remove_neg,
+        remove_zero=remove_zero,
+    )
+    return np.sqrt(
+        np.mean(np.power(np.log1p(simulated_array) - np.log1p(observed_array), 2))
+    )
 
 
-def nrmse_range(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-                remove_neg=False, remove_zero=False):
+def nrmse_range(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the range normalized root mean square error between the simulated and observed data.
 
     .. image:: /pictures/NRMSE_Range.png
@@ -1105,14 +1269,14 @@ def nrmse_range(simulated_array, observed_array, replace_nan=None, replace_inf=N
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     rmse_value = np.sqrt(np.mean((simulated_array - observed_array) ** 2))
@@ -1121,8 +1285,14 @@ def nrmse_range(simulated_array, observed_array, replace_nan=None, replace_inf=N
     return rmse_value / (obs_max - obs_min)
 
 
-def nrmse_mean(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-               remove_neg=False, remove_zero=False):
+def nrmse_mean(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the mean normalized root mean square error between the simulated and observed data.
 
     .. image:: /pictures/NRMSE_Mean.png
@@ -1185,14 +1355,14 @@ def nrmse_mean(simulated_array, observed_array, replace_nan=None, replace_inf=No
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     rmse_value = np.sqrt(np.mean((simulated_array - observed_array) ** 2))
@@ -1200,8 +1370,14 @@ def nrmse_mean(simulated_array, observed_array, replace_nan=None, replace_inf=No
     return rmse_value / obs_mean
 
 
-def nrmse_iqr(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-              remove_neg=False, remove_zero=False):
+def nrmse_iqr(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the IQR normalized root mean square error between the simulated and observed data.
 
     .. image:: /pictures/NRMSE_IQR.png
@@ -1265,14 +1441,14 @@ def nrmse_iqr(simulated_array, observed_array, replace_nan=None, replace_inf=Non
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     rmse_value = np.sqrt(np.mean((simulated_array - observed_array) ** 2))
@@ -1282,8 +1458,14 @@ def nrmse_iqr(simulated_array, observed_array, replace_nan=None, replace_inf=Non
     return rmse_value / iqr
 
 
-def irmse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-          remove_neg=False, remove_zero=False):
+def irmse(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the inertial root mean square error (IRMSE) between the simulated and observed data.
@@ -1347,19 +1529,19 @@ def irmse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     """
 
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     # Getting the gradient of the observed data
     obs_len = observed_array.size
-    obs_grad = observed_array[1:obs_len] - observed_array[0:obs_len - 1]
+    obs_grad = observed_array[1:obs_len] - observed_array[0 : obs_len - 1]
 
     # Standard deviation of the gradient
     obs_grad_std = np.std(obs_grad, ddof=1)
@@ -1369,8 +1551,15 @@ def irmse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return rmse_value / obs_grad_std
 
 
-def mase(simulated_array, observed_array, m=1, replace_nan=None, replace_inf=None,
-         remove_neg=False, remove_zero=False):
+def mase(
+    simulated_array,
+    observed_array,
+    m=1,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the mean absolute scaled error between the simulated and observed data.
 
     .. image:: /pictures/MASE.png
@@ -1440,18 +1629,24 @@ def mase(simulated_array, observed_array, m=1, replace_nan=None, replace_inf=Non
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     start = m
     end = simulated_array.size - m
     a = np.mean(np.abs(simulated_array - observed_array))
-    b = np.abs(observed_array[start:observed_array.size] - observed_array[:end])
+    b = np.abs(observed_array[start : observed_array.size] - observed_array[:end])
     return a / (np.sum(b) / end)
 
 
-def pearson_r(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-              remove_neg=False, remove_zero=False):
+def pearson_r(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the pearson correlation coefficient.
@@ -1514,14 +1709,14 @@ def pearson_r(simulated_array, observed_array, replace_nan=None, replace_inf=Non
 
     """
     # Checking and cleaning the data
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     sim_mean = np.mean(simulated_array)
@@ -1534,8 +1729,14 @@ def pearson_r(simulated_array, observed_array, replace_nan=None, replace_inf=Non
     return top / (bot1 * bot2)
 
 
-def spearman_r(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-               remove_neg=False, remove_zero=False):
+def spearman_r(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the spearman rank correlation coefficient.
@@ -1606,7 +1807,7 @@ def spearman_r(simulated_array, observed_array, replace_nan=None, replace_inf=No
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     rank_sim = rankdata(simulated_array)
@@ -1617,13 +1818,21 @@ def spearman_r(simulated_array, observed_array, replace_nan=None, replace_inf=No
 
     top = np.mean((rank_obs - mean_rank_obs) * (rank_sim - mean_rank_sim))
     bot = np.sqrt(
-        np.mean((rank_obs - mean_rank_obs) ** 2) * np.mean((rank_sim - mean_rank_sim) ** 2))
+        np.mean((rank_obs - mean_rank_obs) ** 2)
+        * np.mean((rank_sim - mean_rank_sim) ** 2)
+    )
 
     return top / bot
 
 
-def r_squared(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-              remove_neg=False, remove_zero=False):
+def r_squared(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the the Coefficient of Determination (r2).
@@ -1689,16 +1898,22 @@ def r_squared(simulated_array, observed_array, replace_nan=None, replace_inf=Non
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = observed_array - np.mean(observed_array)
     b = simulated_array - np.mean(simulated_array)
-    return (np.sum(a * b)) ** 2 / (np.sum(a ** 2) * np.sum(b ** 2))
+    return (np.sum(a * b)) ** 2 / (np.sum(a**2) * np.sum(b**2))
 
 
-def acc(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-        remove_neg=False, remove_zero=False):
+def acc(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the the anomaly correlation coefficient (ACC).
@@ -1775,17 +1990,27 @@ def acc(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = simulated_array - np.mean(simulated_array)
     b = observed_array - np.mean(observed_array)
-    c = np.std(observed_array, ddof=1) * np.std(simulated_array, ddof=1) * simulated_array.size
+    c = (
+        np.std(observed_array, ddof=1)
+        * np.std(simulated_array, ddof=1)
+        * simulated_array.size
+    )
     return np.dot(a, b / c)
 
 
-def mape(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-         remove_neg=False, remove_zero=False):
+def mape(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the the mean absolute percentage error (MAPE).
@@ -1852,7 +2077,7 @@ def mape(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = simulated_array - observed_array
@@ -1861,8 +2086,14 @@ def mape(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return c * np.sum(b)
 
 
-def mapd(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-         remove_neg=False, remove_zero=False):
+def mapd(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the the mean absolute percentage deviation (MAPD).
 
     .. image:: /pictures/MAPD.png
@@ -1926,7 +2157,7 @@ def mapd(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = np.sum(np.abs(simulated_array - observed_array))
@@ -1934,8 +2165,14 @@ def mapd(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return a / b
 
 
-def maape(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-          remove_neg=False, remove_zero=False):
+def maape(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the the Mean Arctangent Absolute Percentage Error (MAAPE).
 
     .. image:: /pictures/MAAPE.png
@@ -2002,7 +2239,7 @@ def maape(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = simulated_array - observed_array
@@ -2010,8 +2247,14 @@ def maape(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return np.mean(np.arctan(b))
 
 
-def smape1(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-           remove_neg=False, remove_zero=False):
+def smape1(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the the Symmetric Mean Absolute Percentage Error (1) (SMAPE1).
@@ -2086,7 +2329,7 @@ def smape1(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = 100 / simulated_array.size
@@ -2095,8 +2338,14 @@ def smape1(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return a * np.sum(b / c)
 
 
-def smape2(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-           remove_neg=False, remove_zero=False):
+def smape2(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the the Symmetric Mean Absolute Percentage Error (2) (SMAPE2).
@@ -2171,7 +2420,7 @@ def smape2(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = simulated_array - observed_array
@@ -2180,8 +2429,14 @@ def smape2(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return c * np.sum(np.abs(a / b))
 
 
-def d(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-      remove_neg=False, remove_zero=False):
+def d(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the the index of agreement (d).
@@ -2250,7 +2505,7 @@ def d(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = (observed_array - simulated_array) ** 2
@@ -2259,8 +2514,14 @@ def d(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return 1 - (np.sum(a) / np.sum((b + c) ** 2))
 
 
-def d1(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-       remove_neg=False, remove_zero=False):
+def d1(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the the index of agreement (d1).
@@ -2329,7 +2590,7 @@ def d1(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     obs_mean = np.mean(observed_array)
@@ -2340,8 +2601,14 @@ def d1(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return 1 - np.sum(a) / np.sum(b + c)
 
 
-def dr(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-       remove_neg=False, remove_zero=False):
+def dr(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the the refined index of agreement (dr).
@@ -2411,7 +2678,7 @@ def dr(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = np.sum(np.abs(simulated_array - observed_array))
@@ -2422,8 +2689,14 @@ def dr(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         return (b / a) - 1
 
 
-def drel(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-         remove_neg=False, remove_zero=False):
+def drel(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the the relative index of agreement (drel).
 
     .. image:: /pictures/drel.png
@@ -2489,7 +2762,7 @@ def drel(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = ((simulated_array - observed_array) / observed_array) ** 2
@@ -2499,8 +2772,15 @@ def drel(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return 1 - (np.sum(a) / np.sum(e))
 
 
-def dmod(simulated_array, observed_array, j=1, replace_nan=None, replace_inf=None,
-         remove_neg=False, remove_zero=False):
+def dmod(
+    simulated_array,
+    observed_array,
+    j=1,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the the modified index of agreement (dmod).
@@ -2580,7 +2860,7 @@ def dmod(simulated_array, observed_array, j=1, replace_nan=None, replace_inf=Non
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = (np.abs(simulated_array - observed_array)) ** j
@@ -2590,8 +2870,14 @@ def dmod(simulated_array, observed_array, j=1, replace_nan=None, replace_inf=Non
     return 1 - (np.sum(a) / np.sum(e))
 
 
-def watt_m(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-           remove_neg=False, remove_zero=False):
+def watt_m(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute Watterson's M (M).
 
     .. image:: /pictures/M.png
@@ -2657,7 +2943,7 @@ def watt_m(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = 2 / np.pi
@@ -2668,8 +2954,14 @@ def watt_m(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return a * np.arcsin(1 - (b / f))
 
 
-def mb_r(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-         remove_neg=False, remove_zero=False):
+def mb_r(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute Mielke-Berry R value (MB R).
@@ -2763,7 +3055,7 @@ def mb_r(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     # Calculate metric
@@ -2772,13 +3064,19 @@ def mb_r(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     for i in range(n):
         tot = tot + np.sum(np.abs(simulated_array - observed_array[i]))
     mae_val = np.sum(np.abs(simulated_array - observed_array)) / n
-    mb = 1 - ((n ** 2) * mae_val / tot)
+    mb = 1 - ((n**2) * mae_val / tot)
 
     return mb
 
 
-def nse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-        remove_neg=False, remove_zero=False):
+def nse(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the Nash-Sutcliffe Efficiency.
 
     .. image:: /pictures/NSE.png
@@ -2853,7 +3151,7 @@ def nse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = (np.abs(simulated_array - observed_array)) ** 2
@@ -2861,8 +3159,15 @@ def nse(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return 1 - (np.sum(a) / np.sum(b))
 
 
-def nse_mod(simulated_array, observed_array, j=1, replace_nan=None, replace_inf=None,
-            remove_neg=False, remove_zero=False):
+def nse_mod(
+    simulated_array,
+    observed_array,
+    j=1,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the modified Nash-Sutcliffe efficiency (NSE mod).
 
     .. image:: /pictures/NSEmod.png
@@ -2934,7 +3239,7 @@ def nse_mod(simulated_array, observed_array, j=1, replace_nan=None, replace_inf=
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = (np.abs(simulated_array - observed_array)) ** j
@@ -2942,8 +3247,14 @@ def nse_mod(simulated_array, observed_array, j=1, replace_nan=None, replace_inf=
     return 1 - (np.sum(a) / np.sum(b))
 
 
-def nse_rel(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-            remove_neg=False, remove_zero=False):
+def nse_rel(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the relative Nash-Sutcliffe efficiency (NSE rel).
@@ -3012,16 +3323,26 @@ def nse_rel(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = (np.abs((simulated_array - observed_array) / observed_array)) ** 2
-    b = (np.abs((observed_array - np.mean(observed_array)) / np.mean(observed_array))) ** 2
+    b = (
+        np.abs((observed_array - np.mean(observed_array)) / np.mean(observed_array))
+    ) ** 2
     return 1 - (np.sum(a) / np.sum(b))
 
 
-def kge_2009(simulated_array, observed_array, s=(1, 1, 1), replace_nan=None,
-             replace_inf=None, remove_neg=False, remove_zero=False, return_all=False):
+def kge_2009(
+    simulated_array,
+    observed_array,
+    s=(1, 1, 1),
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+    return_all=False,
+):
     """Compute the Kling-Gupta efficiency (2009).
 
     .. image:: /pictures/KGE_2009.png
@@ -3100,7 +3421,7 @@ def kge_2009(simulated_array, observed_array, s=(1, 1, 1), replace_nan=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     # Means
@@ -3131,19 +3452,27 @@ def kge_2009(simulated_array, observed_array, s=(1, 1, 1), replace_nan=None,
 
     if not np.isnan(beta) and not np.isnan(alpha):
         kge = 1 - np.sqrt(
-            (s[0] * (pr - 1)) ** 2 + (s[1] * (alpha - 1)) ** 2 + (s[2] * (beta - 1)) ** 2)
+            (s[0] * (pr - 1)) ** 2
+            + (s[1] * (alpha - 1)) ** 2
+            + (s[2] * (beta - 1)) ** 2
+        )
     else:
         if obs_mean == 0:
             warnings.warn(
-                'Warning: The observed data mean is 0. Therefore, Beta is infinite and the KGE '
-                'value cannot be computed.')
+                "Warning: The observed data mean is 0. Therefore, Beta is infinite and the KGE "
+                "value cannot be computed."
+            )
         if obs_sigma == 0:
             warnings.warn(
-                'Warning: The observed data standard deviation is 0. Therefore, Alpha is infinite '
-                'and the KGE value cannot be computed.')
+                "Warning: The observed data standard deviation is 0. Therefore, Alpha is infinite "
+                "and the KGE value cannot be computed."
+            )
         kge = np.nan
 
-    assert type(return_all) == bool, "expected <type 'bool'> for parameter return_all, got {}".format(type(return_all))
+    if not isinstance(return_all, bool):
+        raise ValueError(
+            f"expected <type 'bool'> for parameter return_all, got {type(return_all)} for value '{return_all}'"
+        )
 
     if return_all:
         return pr, alpha, beta, kge
@@ -3151,8 +3480,16 @@ def kge_2009(simulated_array, observed_array, s=(1, 1, 1), replace_nan=None,
         return kge
 
 
-def kge_2012(simulated_array, observed_array, s=(1, 1, 1), replace_nan=None,
-             replace_inf=None, remove_neg=False, remove_zero=False, return_all=False):
+def kge_2012(
+    simulated_array,
+    observed_array,
+    s=(1, 1, 1),
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+    return_all=False,
+):
     """
 
     Compute the Kling-Gupta efficiency (2012).
@@ -3225,14 +3562,14 @@ def kge_2012(simulated_array, observed_array, s=(1, 1, 1), replace_nan=None,
       an ensemble of climate change scenarios. Journal of Hydrology, 424, 264-277.
 
     """
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     # Means
@@ -3261,23 +3598,30 @@ def kge_2012(simulated_array, observed_array, s=(1, 1, 1), replace_nan=None,
 
     if obs_mean != 0 and obs_sigma != 0 and sim_mean != 0:
         kge = 1 - np.sqrt(
-            (s[0] * (pr - 1)) ** 2 + (s[1] * (gam - 1)) ** 2 + (s[2] * (beta - 1)) ** 2)
+            (s[0] * (pr - 1)) ** 2 + (s[1] * (gam - 1)) ** 2 + (s[2] * (beta - 1)) ** 2
+        )
     else:
         if obs_mean == 0:
             warnings.warn(
-                'Warning: The observed data mean is 0. Therefore, Beta is infinite and the KGE '
-                'value cannot be computed.')
+                "Warning: The observed data mean is 0. Therefore, Beta is infinite and the KGE "
+                "value cannot be computed."
+            )
         if obs_sigma == 0:
             warnings.warn(
-                'Warning: The observed data standard deviation is 0. Therefore, Gamma is infinite '
-                'and the KGE value cannot be computed.')
+                "Warning: The observed data standard deviation is 0. Therefore, Gamma is infinite "
+                "and the KGE value cannot be computed."
+            )
         if sim_mean == 0:
             warnings.warn(
-                'Warning: The simulated data mean is 0. Therefore, Gamma is infinite '
-                'and the KGE value cannot be computed.')
+                "Warning: The simulated data mean is 0. Therefore, Gamma is infinite "
+                "and the KGE value cannot be computed."
+            )
         kge = np.nan
 
-    assert type(return_all) == bool, "expected <type 'bool'> for parameter return_all, got {}".format(type(return_all))
+    if not isinstance(return_all, bool):
+        raise ValueError(
+            f"expected <type 'bool'> for parameter return_all, got {type(return_all)} for value '{return_all}'"
+        )
 
     if return_all:
         return pr, gam, beta, kge
@@ -3285,8 +3629,15 @@ def kge_2012(simulated_array, observed_array, s=(1, 1, 1), replace_nan=None,
         return kge
 
 
-def lm_index(simulated_array, observed_array, obs_bar_p=None, replace_nan=None,
-             replace_inf=None, remove_neg=False, remove_zero=False):
+def lm_index(
+    simulated_array,
+    observed_array,
+    obs_bar_p=None,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the Legate-McCabe Efficiency Index.
@@ -3358,7 +3709,7 @@ def lm_index(simulated_array, observed_array, obs_bar_p=None, replace_nan=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     mean_obs = np.mean(observed_array)
@@ -3373,8 +3724,15 @@ def lm_index(simulated_array, observed_array, obs_bar_p=None, replace_nan=None,
         return 1 - (np.sum(a) / np.sum(b))
 
 
-def d1_p(simulated_array, observed_array, obs_bar_p=None, replace_nan=None,
-         replace_inf=None, remove_neg=False, remove_zero=False):
+def d1_p(
+    simulated_array,
+    observed_array,
+    obs_bar_p=None,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the Legate-McCabe Index of Agreement.
 
     .. image:: /pictures/D1p.png
@@ -3444,7 +3802,7 @@ def d1_p(simulated_array, observed_array, obs_bar_p=None, replace_nan=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     if obs_bar_p is not None:
@@ -3458,8 +3816,14 @@ def d1_p(simulated_array, observed_array, obs_bar_p=None, replace_nan=None,
         return 1 - (np.sum(a) / np.sum(b))
 
 
-def ve(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-       remove_neg=False, remove_zero=False):
+def ve(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the Volumetric Efficiency (VE).
@@ -3527,7 +3891,7 @@ def ve(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = np.sum(np.abs(simulated_array - observed_array))
@@ -3535,8 +3899,14 @@ def ve(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return 1 - (a / b)
 
 
-def sa(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-       remove_neg=False, remove_zero=False):
+def sa(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the Spectral Angle (SA).
 
     .. image:: /pictures/SA.png
@@ -3604,7 +3974,7 @@ def sa(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     a = np.dot(simulated_array, observed_array)
@@ -3612,8 +3982,14 @@ def sa(simulated_array, observed_array, replace_nan=None, replace_inf=None,
     return np.arccos(a / b)
 
 
-def sc(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-       remove_neg=False, remove_zero=False):
+def sc(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the Spectral Correlation (SC).
 
     .. image:: /pictures/SC.png
@@ -3681,18 +4057,27 @@ def sc(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    a = np.dot(observed_array - np.mean(observed_array), simulated_array - np.mean(simulated_array))
+    a = np.dot(
+        observed_array - np.mean(observed_array),
+        simulated_array - np.mean(simulated_array),
+    )
     b = np.linalg.norm(observed_array - np.mean(observed_array))
     c = np.linalg.norm(simulated_array - np.mean(simulated_array))
     e = b * c
     return np.arccos(a / e)
 
 
-def sid(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-        remove_neg=False, remove_zero=False):
+def sid(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the Spectral Information Divergence (SID).
 
     .. image:: /pictures/SID.png
@@ -3760,18 +4145,25 @@ def sid(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     first = (observed_array / np.mean(observed_array)) - (
-            simulated_array / np.mean(simulated_array))
+        simulated_array / np.mean(simulated_array)
+    )
     second1 = np.log10(observed_array) - np.log10(np.mean(observed_array))
     second2 = np.log10(simulated_array) - np.log10(np.mean(simulated_array))
     return np.dot(first, second1 - second2)
 
 
-def sga(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-        remove_neg=False, remove_zero=False):
+def sga(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the Spectral Gradient Angle (SGA).
 
     .. image:: /pictures/SGA.png
@@ -3840,11 +4232,11 @@ def sga(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    sgx = observed_array[1:] - observed_array[:observed_array.size - 1]
-    sgy = simulated_array[1:] - simulated_array[:simulated_array.size - 1]
+    sgx = observed_array[1:] - observed_array[: observed_array.size - 1]
+    sgy = simulated_array[1:] - simulated_array[: simulated_array.size - 1]
     a = np.dot(sgx, sgy)
     b = np.linalg.norm(sgx) * np.linalg.norm(sgy)
     return np.arccos(a / b)
@@ -3855,8 +4247,14 @@ def sga(simulated_array, observed_array, replace_nan=None, replace_inf=None,
 ####################################################################################################
 
 
-def h1_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-           remove_neg=False, remove_zero=False):
+def h1_mhe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the H1 mean error.
 
     .. image:: /pictures/H1.png
@@ -3923,15 +4321,21 @@ def h1_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / observed_array
     return np.mean(h)
 
 
-def h1_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-            remove_neg=False, remove_zero=False):
+def h1_mahe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H1 absolute error.
@@ -4000,15 +4404,21 @@ def h1_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / observed_array
     return np.mean(np.abs(h))
 
 
-def h1_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-             remove_zero=False):
+def h1_rmshe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the H1 root mean square error.
 
     .. image:: /pictures/H1.png
@@ -4076,15 +4486,21 @@ def h1_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / observed_array
-    return np.sqrt(np.mean(h ** 2))
+    return np.sqrt(np.mean(h**2))
 
 
-def h2_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-           remove_zero=False):
+def h2_mhe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H2 mean error.
@@ -4153,15 +4569,21 @@ def h2_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, 
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / simulated_array
     return np.mean(h)
 
 
-def h2_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-            remove_zero=False):
+def h2_mahe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H2 mean absolute error.
@@ -4231,15 +4653,21 @@ def h2_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / simulated_array
     return np.mean(np.abs(h))
 
 
-def h2_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-             remove_zero=False):
+def h2_rmshe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H2 root mean square error.
@@ -4309,15 +4737,21 @@ def h2_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / simulated_array
-    return np.sqrt(np.mean(h ** 2))
+    return np.sqrt(np.mean(h**2))
 
 
-def h3_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-           remove_zero=False):
+def h3_mhe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H3 mean error.
@@ -4387,15 +4821,21 @@ def h3_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, 
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / (0.5 * (simulated_array + observed_array))
     return np.mean(h)
 
 
-def h3_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-            remove_neg=False, remove_zero=False):
+def h3_mahe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H3 mean absolute error.
@@ -4465,15 +4905,21 @@ def h3_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / (0.5 * (simulated_array + observed_array))
     return np.mean(np.abs(h))
 
 
-def h3_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-             remove_zero=False):
+def h3_rmshe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H3 root mean square error.
@@ -4543,15 +4989,21 @@ def h3_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / (0.5 * (simulated_array + observed_array))
-    return np.sqrt(np.mean(h ** 2))
+    return np.sqrt(np.mean(h**2))
 
 
-def h4_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-           remove_zero=False):
+def h4_mhe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H4 mean error.
@@ -4621,15 +5073,21 @@ def h4_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, 
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / np.sqrt(simulated_array * observed_array)
     return np.mean(h)
 
 
-def h4_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-            remove_neg=False, remove_zero=False):
+def h4_mahe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H4 mean absolute error.
@@ -4699,15 +5157,21 @@ def h4_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / np.sqrt(simulated_array * observed_array)
     return np.mean(np.abs(h))
 
 
-def h4_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-             remove_zero=False):
+def h4_rmshe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H4 mean error.
@@ -4777,15 +5241,21 @@ def h4_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = (simulated_array - observed_array) / np.sqrt(simulated_array * observed_array)
-    return np.sqrt(np.mean(h ** 2))
+    return np.sqrt(np.mean(h**2))
 
 
-def h5_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-           remove_zero=False):
+def h5_mhe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H5 mean error.
@@ -4855,17 +5325,25 @@ def h5_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, 
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    top = (simulated_array - observed_array)
-    bot = np.reciprocal(0.5 * (np.reciprocal(observed_array) + np.reciprocal(simulated_array)))
+    top = simulated_array - observed_array
+    bot = np.reciprocal(
+        0.5 * (np.reciprocal(observed_array) + np.reciprocal(simulated_array))
+    )
     h = top / bot
     return np.mean(h)
 
 
-def h5_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-            remove_zero=False):
+def h5_mahe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H5 mean absolute error.
@@ -4935,17 +5413,25 @@ def h5_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    top = (simulated_array - observed_array)
-    bot = np.reciprocal(0.5 * (np.reciprocal(observed_array) + np.reciprocal(simulated_array)))
+    top = simulated_array - observed_array
+    bot = np.reciprocal(
+        0.5 * (np.reciprocal(observed_array) + np.reciprocal(simulated_array))
+    )
     h = top / bot
     return np.mean(np.abs(h))
 
 
-def h5_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-             remove_zero=False):
+def h5_rmshe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H5 root mean square error.
@@ -5015,17 +5501,26 @@ def h5_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    top = (simulated_array - observed_array)
-    bot = np.reciprocal(0.5 * (np.reciprocal(observed_array) + np.reciprocal(simulated_array)))
+    top = simulated_array - observed_array
+    bot = np.reciprocal(
+        0.5 * (np.reciprocal(observed_array) + np.reciprocal(simulated_array))
+    )
     h = top / bot
-    return np.sqrt(np.mean(h ** 2))
+    return np.sqrt(np.mean(h**2))
 
 
-def h6_mhe(simulated_array, observed_array, k=1, replace_nan=None, replace_inf=None,
-           remove_neg=False, remove_zero=False):
+def h6_mhe(
+    simulated_array,
+    observed_array,
+    k=1,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H6 mean error.
@@ -5098,18 +5593,24 @@ def h6_mhe(simulated_array, observed_array, k=1, replace_nan=None, replace_inf=N
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    top = (simulated_array / observed_array - 1)
+    top = simulated_array / observed_array - 1
     bot = np.power(0.5 * (1 + np.power(simulated_array / observed_array, k)), 1 / k)
     h = top / bot
     return np.mean(h)
 
 
-def h6_mahe(simulated_array, observed_array, k=1, replace_nan=None, replace_inf=None,
-            remove_neg=False,
-            remove_zero=False):
+def h6_mahe(
+    simulated_array,
+    observed_array,
+    k=1,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the H6 mean absolute error.
 
     .. image:: /pictures/H6.png
@@ -5180,18 +5681,24 @@ def h6_mahe(simulated_array, observed_array, k=1, replace_nan=None, replace_inf=
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    top = (simulated_array / observed_array - 1)
+    top = simulated_array / observed_array - 1
     bot = np.power(0.5 * (1 + np.power(simulated_array / observed_array, k)), 1 / k)
     h = top / bot
     return np.mean(np.abs(h))
 
 
-def h6_rmshe(simulated_array, observed_array, k=1, replace_nan=None, replace_inf=None,
-             remove_neg=False,
-             remove_zero=False):
+def h6_rmshe(
+    simulated_array,
+    observed_array,
+    k=1,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H6 root mean square error.
@@ -5264,17 +5771,23 @@ def h6_rmshe(simulated_array, observed_array, k=1, replace_nan=None, replace_inf
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    top = (simulated_array / observed_array - 1)
+    top = simulated_array / observed_array - 1
     bot = np.power(0.5 * (1 + np.power(simulated_array / observed_array, k)), 1 / k)
     h = top / bot
-    return np.sqrt(np.mean(h ** 2))
+    return np.sqrt(np.mean(h**2))
 
 
-def h7_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-           remove_zero=False):
+def h7_mhe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H7 mean error.
@@ -5344,15 +5857,23 @@ def h7_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, 
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    h = (simulated_array / observed_array - 1) / np.min(simulated_array / observed_array)
+    h = (simulated_array / observed_array - 1) / np.min(
+        simulated_array / observed_array
+    )
     return np.mean(h)
 
 
-def h7_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-            remove_zero=False):
+def h7_mahe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H7 mean absolute error.
@@ -5422,15 +5943,23 @@ def h7_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    h = (simulated_array / observed_array - 1) / np.min(simulated_array / observed_array)
+    h = (simulated_array / observed_array - 1) / np.min(
+        simulated_array / observed_array
+    )
     return np.mean(np.abs(h))
 
 
-def h7_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-             remove_zero=False):
+def h7_rmshe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H7 root mean square error.
@@ -5500,15 +6029,23 @@ def h7_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    h = (simulated_array / observed_array - 1) / np.min(simulated_array / observed_array)
-    return np.sqrt(np.mean(h ** 2))
+    h = (simulated_array / observed_array - 1) / np.min(
+        simulated_array / observed_array
+    )
+    return np.sqrt(np.mean(h**2))
 
 
-def h8_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-           remove_zero=False):
+def h8_mhe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Compute the H8 mean error.
 
     .. image:: /pictures/H8.png
@@ -5576,15 +6113,23 @@ def h8_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, 
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    h = (simulated_array / observed_array - 1) / np.max(simulated_array / observed_array)
+    h = (simulated_array / observed_array - 1) / np.max(
+        simulated_array / observed_array
+    )
     return np.mean(h)
 
 
-def h8_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-            remove_zero=False):
+def h8_mahe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H8 mean absolute error.
@@ -5654,15 +6199,23 @@ def h8_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    h = (simulated_array / observed_array - 1) / np.max(simulated_array / observed_array)
+    h = (simulated_array / observed_array - 1) / np.max(
+        simulated_array / observed_array
+    )
     return np.mean(np.abs(h))
 
 
-def h8_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-             remove_zero=False):
+def h8_rmshe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H8 root mean square error.
@@ -5732,11 +6285,13 @@ def h8_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
-    h = (simulated_array / observed_array - 1) / np.max(simulated_array / observed_array)
-    return np.sqrt(np.mean(h ** 2))
+    h = (simulated_array / observed_array - 1) / np.max(
+        simulated_array / observed_array
+    )
+    return np.sqrt(np.mean(h**2))
 
 
 # def h9(simulated_array, observed_array, h_type='mhe', k=1):
@@ -5752,8 +6307,14 @@ def h8_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None
 #         raise RuntimeError("The three types available are 'mhe', 'ahe', and 'rmshe'.")
 
 
-def h10_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-            remove_zero=False):
+def h10_mhe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H10 mean error.
@@ -5823,15 +6384,21 @@ def h10_mhe(simulated_array, observed_array, replace_nan=None, replace_inf=None,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = np.log1p(simulated_array) - np.log1p(observed_array)
     return np.mean(h)
 
 
-def h10_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-             remove_zero=False):
+def h10_mahe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H10 mean absolute error.
@@ -5901,15 +6468,21 @@ def h10_mahe(simulated_array, observed_array, replace_nan=None, replace_inf=None
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = np.log1p(simulated_array) - np.log1p(observed_array)
     return np.mean(np.abs(h))
 
 
-def h10_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-              remove_zero=False):
+def h10_rmshe(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the H10 root mean square error.
@@ -5979,11 +6552,11 @@ def h10_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=Non
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     h = np.log1p(simulated_array) - np.log1p(observed_array)
-    return np.sqrt(np.mean(h ** 2))
+    return np.sqrt(np.mean(h**2))
 
 
 ###################################################################################################
@@ -5991,9 +6564,14 @@ def h10_rmshe(simulated_array, observed_array, replace_nan=None, replace_inf=Non
 ###################################################################################################
 
 
-def g_mean_diff(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-                remove_neg=False,
-                remove_zero=False):
+def g_mean_diff(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the geometric mean difference.
@@ -6061,7 +6639,7 @@ def g_mean_diff(simulated_array, observed_array, replace_nan=None, replace_inf=N
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     sim_log = np.log1p(simulated_array)
@@ -6069,8 +6647,14 @@ def g_mean_diff(simulated_array, observed_array, replace_nan=None, replace_inf=N
     return np.exp(gmean(sim_log) - gmean(obs_log))
 
 
-def mean_var(simulated_array, observed_array, replace_nan=None, replace_inf=None, remove_neg=False,
-             remove_zero=False):
+def mean_var(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """
 
     Compute the mean variance.
@@ -6129,14 +6713,14 @@ def mean_var(simulated_array, observed_array, replace_nan=None, replace_inf=None
     ----------
 
     """
-    
+
     simulated_array, observed_array = treat_values(
         simulated_array,
         observed_array,
         replace_nan=replace_nan,
         replace_inf=replace_inf,
         remove_neg=remove_neg,
-        remove_zero=remove_zero
+        remove_zero=remove_zero,
     )
 
     return np.var(np.log1p(observed_array) - np.log1p(simulated_array))
@@ -6148,56 +6732,237 @@ def mean_var(simulated_array, observed_array, replace_nan=None, replace_inf=None
 
 
 metric_names = [
-    'Mean Error', 'Mean Absolute Error', 'Mean Squared Error', 'Mean Log Error',
-    'Mean Absolute Log Error', 'Mean Squared Log Error', 'Median Error', 'Median Absolute Error',
-    'Median Squared Error', 'Eclidean Distance', 'Normalized Eclidean Distance',
-    'Root Mean Square Error', 'Root Mean Squared Log Error',
-    'Normalized Root Mean Square Error - Range', 'Normalized Root Mean Square Error - Mean',
-    'Normalized Root Mean Square Error - IQR', 'Inertial Root Mean Square Error',
-    'Mean Absolute Scaled Error', 'Coefficient of Determination', 'Pearson Correlation Coefficient',
-    'Spearman Rank Correlation Coefficient', 'Anomaly Correlation Coefficient',
-    'Mean Absolute Percentage Error', 'Mean Absolute Percentage Deviation',
-    'Mean Arctangent Absolute Percentage Error', 'Symmetric Mean Absolute Percentage Error (1)',
-    'Symmetric Mean Absolute Percentage Error (2)', 'Index of Agreement (d)',
-    'Index of Agreement (d1)', 'Modified Index of Agreement', 'Relative Index of Agreement',
-    'Index of Agreement Refined (dr)', "Watterson's M", 'Mielke-Berry R',
-    'Nash-Sutcliffe Efficiency', 'Modified Nash-Sutcliffe Efficiency',
-    'Relative Nash-Sutcliffe Efficiency', 'Kling-Gupta Efficiency (2009)',
-    'Kling-Gupta Efficiency (2012)', 'Legate-McCabe Efficiency Index',
-    'Legate-McCabe Index of Agreement', 'Volumetric Efficiency', 'Spectral Angle',
-    'Spectral Correlation', 'Spectral Information Divergence', 'Spectral Gradient Angle',
-    'Mean H1 Error', 'Mean Absolute H1 Error', 'Root Mean Square H1 Error', 'Mean H2 Error',
-    'Mean Absolute H2 Error', 'Root Mean Square H2 Error', 'Mean H3 Error',
-    'Mean Absolute H3 Error', 'Root Mean Square H3 Error', 'Mean H4 Error',
-    'Mean Absolute H4 Error', 'Root Mean Square H4 Error', 'Mean H5 Error',
-    'Mean Absolute H5 Error', 'Root Mean Square H5 Error', 'Mean H6 Error',
-    'Mean Absolute H6 Error', 'Root Mean Square H6 Error', 'Mean H7 Error',
-    'Mean Absolute H7 Error', 'Root Mean Square H7 Error', 'Mean H8 Error',
-    'Mean Absolute H8 Error', 'Root Mean Square H8 Error', 'Mean H10 Error',
-    'Mean Absolute H10 Error', 'Root Mean Square H10 Error', 'Geometric Mean Difference',
-    'Mean Variance'
+    "Mean Error",
+    "Mean Absolute Error",
+    "Mean Squared Error",
+    "Mean Log Error",
+    "Mean Absolute Log Error",
+    "Mean Squared Log Error",
+    "Median Error",
+    "Median Absolute Error",
+    "Median Squared Error",
+    "Eclidean Distance",
+    "Normalized Eclidean Distance",
+    "Root Mean Square Error",
+    "Root Mean Squared Log Error",
+    "Normalized Root Mean Square Error - Range",
+    "Normalized Root Mean Square Error - Mean",
+    "Normalized Root Mean Square Error - IQR",
+    "Inertial Root Mean Square Error",
+    "Mean Absolute Scaled Error",
+    "Coefficient of Determination",
+    "Pearson Correlation Coefficient",
+    "Spearman Rank Correlation Coefficient",
+    "Anomaly Correlation Coefficient",
+    "Mean Absolute Percentage Error",
+    "Mean Absolute Percentage Deviation",
+    "Mean Arctangent Absolute Percentage Error",
+    "Symmetric Mean Absolute Percentage Error (1)",
+    "Symmetric Mean Absolute Percentage Error (2)",
+    "Index of Agreement (d)",
+    "Index of Agreement (d1)",
+    "Modified Index of Agreement",
+    "Relative Index of Agreement",
+    "Index of Agreement Refined (dr)",
+    "Watterson's M",
+    "Mielke-Berry R",
+    "Nash-Sutcliffe Efficiency",
+    "Modified Nash-Sutcliffe Efficiency",
+    "Relative Nash-Sutcliffe Efficiency",
+    "Kling-Gupta Efficiency (2009)",
+    "Kling-Gupta Efficiency (2012)",
+    "Legate-McCabe Efficiency Index",
+    "Legate-McCabe Index of Agreement",
+    "Volumetric Efficiency",
+    "Spectral Angle",
+    "Spectral Correlation",
+    "Spectral Information Divergence",
+    "Spectral Gradient Angle",
+    "Mean H1 Error",
+    "Mean Absolute H1 Error",
+    "Root Mean Square H1 Error",
+    "Mean H2 Error",
+    "Mean Absolute H2 Error",
+    "Root Mean Square H2 Error",
+    "Mean H3 Error",
+    "Mean Absolute H3 Error",
+    "Root Mean Square H3 Error",
+    "Mean H4 Error",
+    "Mean Absolute H4 Error",
+    "Root Mean Square H4 Error",
+    "Mean H5 Error",
+    "Mean Absolute H5 Error",
+    "Root Mean Square H5 Error",
+    "Mean H6 Error",
+    "Mean Absolute H6 Error",
+    "Root Mean Square H6 Error",
+    "Mean H7 Error",
+    "Mean Absolute H7 Error",
+    "Root Mean Square H7 Error",
+    "Mean H8 Error",
+    "Mean Absolute H8 Error",
+    "Root Mean Square H8 Error",
+    "Mean H10 Error",
+    "Mean Absolute H10 Error",
+    "Root Mean Square H10 Error",
+    "Geometric Mean Difference",
+    "Mean Variance",
 ]
 
 metric_abbr = [
-    'ME', 'MAE', 'MSE', 'MLE', 'MALE', 'MSLE', 'MdE', 'MdAE', 'MdSE', 'ED', 'NED', 'RMSE', 'RMSLE',
-    'NRMSE (Range)', 'NRMSE (Mean)', 'NRMSE (IQR)', 'IRMSE', 'MASE', 'r2', 'R (Pearson)',
-    'R (Spearman)', 'ACC', 'MAPE', 'MAPD', 'MAAPE', 'SMAPE1', 'SMAPE2', 'd', 'd1', 'd (Mod.)',
-    'd (Rel.)', 'dr', 'M', '(MB) R', 'NSE', 'NSE (Mod.)', 'NSE (Rel.)', 'KGE (2009)', 'KGE (2012)',
-    "E1'", "D1'", 'VE', 'SA', 'SC', 'SID', 'SGA', 'H1 (MHE)', 'H1 (MAHE)', 'H1 (RMSHE)', 'H2 (MHE)',
-    'H2 (MAHE)', 'H2 (RMSHE)', 'H3 (MHE)', 'H3 (MAHE)', 'H3 (RMSHE)', 'H4 (MHE)', 'H4 (MAHE)',
-    'H4 (RMSHE)', 'H5 (MHE)', 'H5 (MAHE)', 'H5 (RMSHE)', 'H6 (MHE)', 'H6 (MAHE)', 'H6 (RMSHE)',
-    'H7 (MHE)', 'H7 (MAHE)', 'H7 (RMSHE)', 'H8 (MHE)', 'H8 (MAHE)', 'H8 (RMSHE)', 'H10 (MHE)',
-    'H10 (MAHE)', 'H10 (RMSHE)', 'GMD', 'MV'
+    "ME",
+    "MAE",
+    "MSE",
+    "MLE",
+    "MALE",
+    "MSLE",
+    "MdE",
+    "MdAE",
+    "MdSE",
+    "ED",
+    "NED",
+    "RMSE",
+    "RMSLE",
+    "NRMSE (Range)",
+    "NRMSE (Mean)",
+    "NRMSE (IQR)",
+    "IRMSE",
+    "MASE",
+    "r2",
+    "R (Pearson)",
+    "R (Spearman)",
+    "ACC",
+    "MAPE",
+    "MAPD",
+    "MAAPE",
+    "SMAPE1",
+    "SMAPE2",
+    "d",
+    "d1",
+    "d (Mod.)",
+    "d (Rel.)",
+    "dr",
+    "M",
+    "(MB) R",
+    "NSE",
+    "NSE (Mod.)",
+    "NSE (Rel.)",
+    "KGE (2009)",
+    "KGE (2012)",
+    "E1'",
+    "D1'",
+    "VE",
+    "SA",
+    "SC",
+    "SID",
+    "SGA",
+    "H1 (MHE)",
+    "H1 (MAHE)",
+    "H1 (RMSHE)",
+    "H2 (MHE)",
+    "H2 (MAHE)",
+    "H2 (RMSHE)",
+    "H3 (MHE)",
+    "H3 (MAHE)",
+    "H3 (RMSHE)",
+    "H4 (MHE)",
+    "H4 (MAHE)",
+    "H4 (RMSHE)",
+    "H5 (MHE)",
+    "H5 (MAHE)",
+    "H5 (RMSHE)",
+    "H6 (MHE)",
+    "H6 (MAHE)",
+    "H6 (RMSHE)",
+    "H7 (MHE)",
+    "H7 (MAHE)",
+    "H7 (RMSHE)",
+    "H8 (MHE)",
+    "H8 (MAHE)",
+    "H8 (RMSHE)",
+    "H10 (MHE)",
+    "H10 (MAHE)",
+    "H10 (RMSHE)",
+    "GMD",
+    "MV",
 ]
 
 function_list = [
-    me, mae, mse, mle, male, msle, mde, mdae, mdse, ed, ned, rmse, rmsle, nrmse_range, nrmse_mean,
-    nrmse_iqr, irmse, mase, r_squared, pearson_r, spearman_r, acc, mape, mapd, maape, smape1,
-    smape2, d, d1, dmod, drel, dr, watt_m, mb_r, nse, nse_mod, nse_rel, kge_2009, kge_2012,
-    lm_index, d1_p, ve, sa, sc, sid, sga, h1_mhe, h1_mahe, h1_rmshe, h2_mhe, h2_mahe, h2_rmshe,
-    h3_mhe, h3_mahe, h3_rmshe, h4_mhe, h4_mahe, h4_rmshe, h5_mhe, h5_mahe, h5_rmshe, h6_mhe,
-    h6_mahe, h6_rmshe, h7_mhe, h7_mahe, h7_rmshe, h8_mhe, h8_mahe, h8_rmshe, h10_mhe, h10_mahe,
-    h10_rmshe, g_mean_diff, mean_var,
+    me,
+    mae,
+    mse,
+    mle,
+    male,
+    msle,
+    mde,
+    mdae,
+    mdse,
+    ed,
+    ned,
+    rmse,
+    rmsle,
+    nrmse_range,
+    nrmse_mean,
+    nrmse_iqr,
+    irmse,
+    mase,
+    r_squared,
+    pearson_r,
+    spearman_r,
+    acc,
+    mape,
+    mapd,
+    maape,
+    smape1,
+    smape2,
+    d,
+    d1,
+    dmod,
+    drel,
+    dr,
+    watt_m,
+    mb_r,
+    nse,
+    nse_mod,
+    nse_rel,
+    kge_2009,
+    kge_2012,
+    lm_index,
+    d1_p,
+    ve,
+    sa,
+    sc,
+    sid,
+    sga,
+    h1_mhe,
+    h1_mahe,
+    h1_rmshe,
+    h2_mhe,
+    h2_mahe,
+    h2_rmshe,
+    h3_mhe,
+    h3_mahe,
+    h3_rmshe,
+    h4_mhe,
+    h4_mahe,
+    h4_rmshe,
+    h5_mhe,
+    h5_mahe,
+    h5_rmshe,
+    h6_mhe,
+    h6_mahe,
+    h6_rmshe,
+    h7_mhe,
+    h7_mahe,
+    h7_rmshe,
+    h8_mhe,
+    h8_mahe,
+    h8_rmshe,
+    h10_mhe,
+    h10_mahe,
+    h10_rmshe,
+    g_mean_diff,
+    mean_var,
 ]
 
 
@@ -6207,8 +6972,14 @@ for i in range(len(function_list)):
     function_list[i].abbr = metric_abbr[i]
 
 
-def treat_values(simulated_array, observed_array, replace_nan=None, replace_inf=None,
-                 remove_neg=False, remove_zero=False):
+def treat_values(
+    simulated_array,
+    observed_array,
+    replace_nan=None,
+    replace_inf=None,
+    remove_neg=False,
+    remove_zero=False,
+):
     """Removes the nan, negative, and inf values in two numpy arrays"""
     sim_copy = np.copy(simulated_array)
     obs_copy = np.copy(observed_array)
@@ -6233,11 +7004,14 @@ def treat_values(simulated_array, observed_array, replace_nan=None, replace_inf=
             sim_copy[sim_nan] = replace_nan
             obs_copy[obs_nan] = replace_nan
 
-            warnings.warn("Elements(s) {} contained NaN values in the simulated array and "
-                          "elements(s) {} contained NaN values in the observed array and have been "
-                          "replaced (Elements are zero indexed).".format(np.where(sim_nan)[0],
-                                                                         np.where(obs_nan)[0]),
-                          UserWarning)
+            warnings.warn(
+                "Elements(s) {} contained NaN values in the simulated array and "
+                "elements(s) {} contained NaN values in the observed array and have been "
+                "replaced (Elements are zero indexed).".format(
+                    np.where(sim_nan)[0], np.where(obs_nan)[0]
+                ),
+                UserWarning,
+            )
         else:
             # Getting the indices of the nan values, combining them, and informing user.
             nan_indices_fcst = ~np.isnan(sim_copy)
@@ -6245,9 +7019,13 @@ def treat_values(simulated_array, observed_array, replace_nan=None, replace_inf=
             all_nan_indices = np.logical_and(nan_indices_fcst, nan_indices_obs)
             all_treatment_array = np.logical_and(all_treatment_array, all_nan_indices)
 
-            warnings.warn("Row(s) {} contained NaN values and the row(s) have been "
-                          "removed (Rows are zero indexed).".format(np.where(~all_nan_indices)[0]),
-                          UserWarning)
+            warnings.warn(
+                "Row(s) {} contained NaN values and the row(s) have been "
+                "removed (Rows are zero indexed).".format(
+                    np.where(~all_nan_indices)[0]
+                ),
+                UserWarning,
+            )
 
     if np.any(np.isinf(obs_copy)) or np.any(np.isinf(sim_copy)):
         if replace_nan is not None:
@@ -6258,11 +7036,14 @@ def treat_values(simulated_array, observed_array, replace_nan=None, replace_inf=
             sim_copy[sim_inf] = replace_inf
             obs_copy[obs_inf] = replace_inf
 
-            warnings.warn("Elements(s) {} contained Inf values in the simulated array and "
-                          "elements(s) {} contained Inf values in the observed array and have been "
-                          "replaced (Elements are zero indexed).".format(np.where(sim_inf)[0],
-                                                                         np.where(obs_inf)[0]),
-                          UserWarning)
+            warnings.warn(
+                "Elements(s) {} contained Inf values in the simulated array and "
+                "elements(s) {} contained Inf values in the observed array and have been "
+                "replaced (Elements are zero indexed).".format(
+                    np.where(sim_inf)[0], np.where(obs_inf)[0]
+                ),
+                UserWarning,
+            )
         else:
             inf_indices_fcst = ~(np.isinf(sim_copy))
             inf_indices_obs = ~np.isinf(obs_copy)
@@ -6272,7 +7053,7 @@ def treat_values(simulated_array, observed_array, replace_nan=None, replace_inf=
             warnings.warn(
                 "Row(s) {} contained Inf or -Inf values and the row(s) have been removed (Rows "
                 "are zero indexed).".format(np.where(~all_inf_indices)[0]),
-                UserWarning
+                UserWarning,
             )
 
     # Treat zero data in observed_array and simulated_array, rows in simulated_array or
@@ -6287,7 +7068,7 @@ def treat_values(simulated_array, observed_array, replace_nan=None, replace_inf=
             warnings.warn(
                 "Row(s) {} contained zero values and the row(s) have been removed (Rows are "
                 "zero indexed).".format(np.where(~all_zero_indices)[0]),
-                UserWarning
+                UserWarning,
             )
 
     # Treat negative data in observed_array and simulated_array, rows in simulated_array or
@@ -6295,7 +7076,7 @@ def treat_values(simulated_array, observed_array, replace_nan=None, replace_inf=
 
     # Ignore runtime warnings from comparing
     if remove_neg:
-        with np.errstate(invalid='ignore'):
+        with np.errstate(invalid="ignore"):
             obs_copy_bool = obs_copy < 0
             sim_copy_bool = sim_copy < 0
 
@@ -6305,9 +7086,13 @@ def treat_values(simulated_array, observed_array, replace_nan=None, replace_inf=
             all_neg_indices = np.logical_and(neg_indices_fcst, neg_indices_obs)
             all_treatment_array = np.logical_and(all_treatment_array, all_neg_indices)
 
-            warnings.warn("Row(s) {} contained negative values and the row(s) have been "
-                          "removed (Rows are zero indexed).".format(np.where(~all_neg_indices)[0]),
-                          UserWarning)
+            warnings.warn(
+                "Row(s) {} contained negative values and the row(s) have been "
+                "removed (Rows are zero indexed).".format(
+                    np.where(~all_neg_indices)[0]
+                ),
+                UserWarning,
+            )
 
     obs_copy = obs_copy[all_treatment_array]
     sim_copy = sim_copy[all_treatment_array]
