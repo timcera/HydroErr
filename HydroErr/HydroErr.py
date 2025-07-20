@@ -1541,7 +1541,7 @@ def irmse(
 
     # Getting the gradient of the observed data
     obs_len = observed_array.size
-    obs_grad = observed_array[1:obs_len] - observed_array[:obs_len - 1]
+    obs_grad = observed_array[1:obs_len] - observed_array[: obs_len - 1]
 
     # Standard deviation of the gradient
     obs_grad_std = np.std(obs_grad, ddof=1)
